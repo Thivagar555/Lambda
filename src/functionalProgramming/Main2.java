@@ -5,19 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main2 {
-    public static long countEmployees(List<BigDecimal> salary, EmployeeFilter filer)
+    public static long countEmployees(List<BigDecimal> salary, Predicate<BigDecimal> salaryFilter)
     {
-        List<BigDecimal> filteredEmployee = new ArrayList<>();
-        salary.forEach(sal -> {
-            if(filer.test(sal)) {
-                filteredEmployee.add(sal);
-            }
-        } );
-        return filteredEmployee.size();
+        return salary.parallelStream().filter(salaryFilter).count();
     }
     public static void printEmployees(List<BigDecimal> salary, EmployeeFilter filer)
     {
@@ -41,5 +36,8 @@ public class Main2 {
 
         System.out.println("above limit");
         printEmployees(salary, (BigDecimal n) -> n.compareTo(salaryLimit) > 0);
+
+        System.out.println("count of below limit");
+        System.out.println(countEmployees(salary, (BigDecimal n) -> n.compareTo(salaryLimit) < 0));
     }
 }

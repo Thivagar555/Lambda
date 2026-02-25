@@ -9,7 +9,7 @@ public class Edge {
     public Edge(Vertex s, Vertex e, Integer w)
     {
         this.start = s;
-        this.end = s;
+        this.end = e;
         this.weight = w;
     }
 

@@ -28,29 +28,27 @@ public class Vertex {
     }
     public void print(boolean showWeight) {
 
-        String message = this.data + " --> ";
+        // Align left in 15 character width
+        System.out.printf("%-15s --> ", this.data);
 
-        // If no edges exist
         if (this.edges.size() == 0) {
-            System.out.println(message);
+            System.out.println();
             return;
         }
 
         for (int i = 0; i < this.edges.size(); i++) {
 
-            message += this.edges.get(i).getEnd().data;
+            System.out.print(this.edges.get(i).getEnd().data);
 
-            // Show weight if required
             if (showWeight) {
-                message += " (" + this.edges.get(i).getWeight() + ")";
+                System.out.print(" (" + this.edges.get(i).getWeight() + ")");
             }
 
-            // Add comma if not last edge
             if (i != this.edges.size() - 1) {
-                message += ", ";
+                System.out.print(", ");
             }
         }
 
-        System.out.println(message);
+        System.out.println();
     }
 }
